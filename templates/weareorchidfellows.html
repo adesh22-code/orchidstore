@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We are Orchid Fellows | Orchid Farm</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAF9F6; 
+        }
+        .serif-font {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        /* Custom hide scrollbar rule for horizontal scroll views */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="text-neutral-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Glassmorphic Header Navigation -->
+    <header class="sticky top-0 z-40 bg-white/40 backdrop-blur-md border-b border-white/20 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <!-- Hamburger Button (Visible on mobile/tablet) -->
+                <button onclick="toggleMobileMenu(true)" class="md:hidden p-2 text-neutral-700 hover:text-emerald-900 transition-colors focus:outline-none" aria-label="Open Menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+                <div>
+                    <h1 class="serif-font text-2xl sm:text-3xl font-bold tracking-wide text-emerald-950">We are Orchid Fellows</h1>
+                    <p class="text-[10px] sm:text-xs tracking-widest text-emerald-700 font-medium uppercase mt-0.5">Orchid Farm</p>
+                </div>
+            </div>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-700">
+                <a href="#" class="hover:text-emerald-800 transition-colors">Home</a>
+                <a href="#flower-grid" class="hover:text-emerald-800 transition-colors">Our Collection</a>
+                <a href="#contact" class="hover:text-emerald-800 transition-colors">Contact</a>
+            </nav>
+            
+            <button onclick="toggleCartModal(true)" class="relative p-2.5 text-neutral-700 hover:text-emerald-900 transition-colors bg-white/80 backdrop-blur-sm rounded-full shadow-sm border border-neutral-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+                <span id="cart-count" class="absolute -top-1 -right-1 bg-emerald-700 text-white text-[11px] font-semibold w-5 h-5 rounded-full flex items-center justify-center shadow-sm">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Slide-out Hamburger Mobile Drawer Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex justify-start" onclick="toggleMobileMenu(false)">
+        <div class="bg-white w-full max-w-xs h-full shadow-2xl flex flex-col p-6 space-y-6" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between border-b border-neutral-100 pb-4">
+                <div class="serif-font text-xl font-bold text-emerald-950">Menu</div>
+                <button onclick="toggleMobileMenu(false)" class="p-2 text-neutral-400 hover:text-neutral-700 rounded-full hover:bg-neutral-100 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <nav class="flex flex-col gap-4 text-base font-medium text-neutral-800">
+                <a href="#" onclick="toggleMobileMenu(false)" class="hover:text-emerald-800 transition-colors py-2 border-b border-neutral-50">Home</a>
+                <a href="#flower-grid" onclick="toggleMobileMenu(false)" class="hover:text-emerald-800 transition-colors py-2 border-b border-neutral-50">Our Collection</a>
+                <a href="#contact" onclick="toggleMobileMenu(false)" class="hover:text-emerald-800 transition-colors py-2 border-b border-neutral-50">Contact</a>
+            </nav>
+        </div>
+    </div>
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4 w-full">
+        <div class="bg-gradient-to-br from-emerald-950 to-neutral-900 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10 mix-blend-overlay bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?auto=format&fit=crop&w=1200&q=80');"></div>
+            <div class="relative z-10 max-w-2xl">
+                <span class="text-xs font-semibold tracking-widest text-emerald-400 uppercase bg-emerald-900/50 px-3 py-1 rounded-full border border-emerald-700/50">Darjeeling Highlands</span>
+                <h2 class="serif-font text-3xl sm:text-5xl font-semibold mt-4 mb-3 leading-tight">Exotic Orchids</h2>
+                <p class="text-neutral-300 font-light text-sm sm:text-base leading-relaxed">Browse our collection of hand-grown Himalayan orchids. Order instantly via WhatsApp.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
+        <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-neutral-200/80">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-neutral-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
+                    </span>
+                    <input type="text" id="search-input" oninput="filterStore()" placeholder="Search orchids..." class="w-full pl-9 pr-4 py-2.5 text-sm bg-neutral-50 rounded-xl border border-neutral-200 focus:outline-none focus:border-emerald-600 focus:bg-white transition-all">
+                </div>
+
+                <div>
+                    <select id="category-select" onchange="handleCategoryChange()" class="w-full px-3 py-2.5 text-sm bg-neutral-50 rounded-xl border border-neutral-200 focus:outline-none focus:border-emerald-600 focus:bg-white transition-all">
+                        <option value="All">All Categories</option>
+                        <option value="Medium">Medium Category</option>
+                        <option value="Premium">Premium Category</option>
+                        <option value="Premium X">Premium X Category</option>
+                        <option value="Rare">Rare Category</option>
+                    </select>
+                </div>
+
+                <div>
+                    <select id="subcategory-select" onchange="filterStore()" class="w-full px-3 py-2.5 text-sm bg-neutral-50 rounded-xl border border-neutral-200 focus:outline-none focus:border-emerald-600 focus:bg-white transition-all">
+                        <option value="All">All Stages (Select category first)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex-grow w-full">
+        <div id="flower-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        </div>
+        
+        <div id="empty-state" class="hidden text-center py-16 bg-white rounded-2xl border border-dashed border-neutral-300 max-w-md mx-auto mt-8">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-12 h-12 mx-auto text-neutral-400 mb-3"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>
+            <h3 class="font-medium text-neutral-800 text-base">No matching orchids found</h3>
+            <p class="text-xs text-neutral-500 mt-1 px-4">Try adjusting your category selection or clearing your search term.</p>
+        </div>
+    </main>
+
+     <!-- Updated Footer with Social Media & Call Buttons -->
+    <footer id="contact" class="bg-neutral-900 text-neutral-400 text-xs py-10 border-t border-neutral-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <!-- Address & Info -->
+            <div class="text-center md:text-left">
+                <p class="font-medium text-neutral-300 text-sm">We are Orchid Fellows</p>
+                <p class="mt-1 opacity-70">Sonada PO, Darjeeling District, West Bengal, PIN 734209</p>
+                <p class="opacity-60 mt-1">&copy; 2026 C
+                    We are Orchid Fellows. Premium Single-Page Platform.</p>
+            </div>
+
+            <!-- Social Media & Contact Buttons -->
+            <div class="flex flex-wrap justify-center items-center gap-4">
+                <!-- Direct Call Option -->
+                <a href="tel:+917001937504" class="flex items-center gap-1.5 bg-neutral-800 hover:bg-emerald-800 text-neutral-200 px-3.5 py-2 rounded-xl border border-neutral-700 hover:border-emerald-600 transition-all font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 text-emerald-400">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.387a12.035 12.035 0 0 1-7.108-7.108c-.155-.44.011-.926.387-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                    </svg>
+                    Call Us
+                </a>
+
+                <!-- WhatsApp Button -->
+                <a href="https://wa.me/917001937504" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 bg-neutral-800 hover:bg-emerald-950 text-neutral-200 px-3.5 py-2 rounded-xl border border-neutral-700 hover:border-emerald-600 transition-all font-medium" aria-label="WhatsApp">
+                    <svg class="w-4 h-4 fill-emerald-400" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.455L0 24zm6.79-11.854c.137-.089.226-.141.348-.317.122-.176.061-.329-.031-.513-.092-.184-.817-1.965-1.118-2.694-.295-.715-.595-.619-.817-.619-.213-.001-.456-.001-.7-.001-.243 0-.639.091-.973.456-.335.365-1.278 1.248-1.278 3.042 0 1.794 1.309 3.524 1.492 3.768.183.243 2.525 4.075 6.242 5.54 3.717 1.465 3.717 1.026 4.387.965.669-.061 2.161-.882 2.465-1.734.304-.852.304-1.583.213-1.734-.092-.152-.335-.243-.67-.408-.336-.165-1.978-.974-2.282-1.084-.304-.111-.527-.165-.747.165-.221.329-.852 1.084-1.043 1.309-.19.226-.38.252-.715.087-.335-.166-1.414-.522-2.694-1.662-1-.892-1.676-1.994-1.872-2.33-.196-.335-.021-.517.147-.682zm0 0"/></svg>
+                    WhatsApp
+                </a>
+
+                <!-- Facebook Button -->
+                <a href="https://facebook.com/your-page-username" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 bg-neutral-800 hover:bg-blue-900 text-neutral-200 px-3.5 py-2 rounded-xl border border-neutral-700 hover:border-blue-700 transition-all font-medium" aria-label="Facebook">
+                    <svg class="w-4 h-4 fill-blue-400" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    Facebook
+                </a>
+
+                <!-- YouTube Button -->
+                <a href="https://youtube.com/@weareorchidfellows?si=SiaIN5OySDH0yur4"_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 bg-neutral-800 hover:bg-red-950 text-neutral-200 px-3.5 py-2 rounded-xl border border-neutral-700 hover:border-red-700 transition-all font-medium" aria-label="YouTube">
+                    <svg class="w-4 h-4 fill-red-500" viewBox="0 0 24 24"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    YouTube
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="lightbox" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-md hidden flex items-center justify-center p-4" onclick="closeLightbox(event)">
+        <div class="bg-white rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl transition-transform transform scale-95" onclick="event.stopPropagation()">
+            <div class="relative h-64 sm:h-80 w-full bg-neutral-100">
+                <img id="lightbox-img" src="" alt="" class="w-full h-full object-cover">
+                <button onclick="toggleLightbox(false)" class="absolute top-4 right-4 bg-black/40 text-white hover:bg-black/60 p-2 rounded-full transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="flex items-start justify-between gap-4">
+                    <div>
+                        <span id="lightbox-badge" class="text-[10px] font-bold tracking-widest uppercase text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-200"></span>
+                        <h3 id="lightbox-title" class="serif-font text-2xl font-bold text-neutral-900 mt-2"></h3>
+                    </div>
+                    <p id="lightbox-price" class="text-xl font-semibold text-emerald-900 font-mono"></p>
+                </div>
+                <p id="lightbox-desc" class="text-sm text-neutral-600 mt-3 leading-relaxed border-b border-neutral-100 pb-4"></p>
+                <div class="mt-4 flex items-center justify-between text-xs text-neutral-500">
+                    <span>📍 Origin: We are Orchid Fellows</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cart-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex justify-end" onclick="toggleCartModal(false)">
+        <div class="bg-white w-full max-w-md h-full shadow-2xl flex flex-col" onclick="event.stopPropagation()">
+            <div class="p-6 border-b border-neutral-200 flex items-center justify-between bg-neutral-50">
+                <div class="flex items-center gap-2">
+                    <h3 class="font-semibold text-neutral-900 text-lg">Your Order Cart</h3>
+                    <span class="text-xs text-neutral-500 bg-neutral-200 px-2 py-0.5 rounded-full font-medium" id="cart-badge-count">0</span>
+                </div>
+                <button onclick="toggleCartModal(false)" class="p-2 text-neutral-400 hover:text-neutral-700 rounded-full hover:bg-neutral-200/50 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+
+            <div id="cart-items-container" class="flex-grow overflow-y-auto p-6 space-y-4 no-scrollbar">
+            </div>
+
+            <div class="p-6 border-t border-neutral-200 bg-neutral-50/50 space-y-4">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-neutral-500 border-b border-neutral-200/60 pb-1">Sonada / Darjeeling Shipping Details</h4>
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="text" id="cust-name" placeholder="Full Name" class="w-full text-xs p-2.5 bg-white border border-neutral-300 rounded-lg focus:outline-emerald-600">
+                    <input type="text" id="cust-phone" placeholder="Phone Number" class="w-full text-xs p-2.5 bg-white border border-neutral-300 rounded-lg focus:outline-emerald-600">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="text" id="cust-city" placeholder="City / Town" class="w-full text-xs p-2.5 bg-white border border-neutral-300 rounded-lg focus:outline-emerald-600">
+                    <input type="text" id="cust-po" placeholder="Post Office" class="w-full text-xs p-2.5 bg-white border border-neutral-300 rounded-lg focus:outline-emerald-600">
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                    <input type="text" id="cust-dist" placeholder="District" class="w-full text-xs p-2.5 bg-white border border-neutral-300 rounded-lg focus:outline-emerald-600">
+                    <input type="text" id="cust-state" placeholder="State"  class="w-full text-xs p-2.5 bg-white border border-neutral-300 rounded-lg focus:outline-emerald-600">
+                    <input type="text" id="cust-pin" placeholder="Pincode" class="w-full text-xs p-2.5 bg-white border border-neutral-300 rounded-lg focus:outline-emerald-600">
+                </div>
+                
+                <div class="pt-2 border-t border-neutral-200">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-sm font-medium text-neutral-600">Estimated Invoice balance:</span>
+                        <span id="cart-total-price" class="text-xl font-bold font-mono text-emerald-950">₹0.00</span>
+                    </div>
+                    <button onclick="submitBookingToWhatsApp()" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-medium py-3 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 text-sm">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.455L0 24zm6.79-11.854c.137-.089.226-.141.348-.317.122-.176.061-.329-.031-.513-.092-.184-.817-1.965-1.118-2.694-.295-.715-.595-.619-.817-.619-.213-.001-.456-.001-.7-.001-.243 0-.639.091-.973.456-.335.365-1.278 1.248-1.278 3.042 0 1.794 1.309 3.524 1.492 3.768.183.243 2.525 4.075 6.242 5.54 3.717 1.465 3.717 1.026 4.387.965.669-.061 2.161-.882 2.465-1.734.304-.852.304-1.583.213-1.734-.092-.152-.335-.243-.67-.408-.336-.165-1.978-.974-2.282-1.084-.304-.111-.527-.165-.747.165-.221.329-.852 1.084-1.043 1.309-.19.226-.38.252-.715.087-.335-.166-1.414-.522-2.694-1.662-1-.892-1.676-1.994-1.872-2.33-.196-.335-.021-.517.147-.682zm0 0"/></svg>
+                        Place Order via WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2"></div>
+
+    <script>
+        const WHATSAPP_NUMBER = "7001937504";
+        const CURRENCY_SYMBOL = "₹";
+
+        const flowers = [
+            { id: 1, name: "Cym Yankillils", category: "Medium", subcategory: "Mature", price: 1250, desc: "Yankililla' is a charming miniature Cymbidium orchid admired for its elegant olive-green blooms and compact growth habit. Despite its small size, it produces beautiful, long-lasting flowers that add a fresh and sophisticated touch to any collection. Its graceful flower spikes and unique green coloration make it an excellent choice for orchid enthusiasts, indoor displays, and collectors seeking something distinctive. Carefully cultivated for healthy growth and reliable blooming, Yankililla is a true gem among miniature Cymbidium orchids.", image: "img/one.jpg" },
+            { id: 2, name: "Cym Sarah Jean Cascade", category: "Rare", subcategory: "Mature", price: 2500, desc: "Sarah Jean Cascade is a breathtaking Cymbidium orchid admired for its elegant cascading flower spikes and abundant blooms. Its gracefully arching sprays create a spectacular waterfall-like display, making it a standout choice for hanging baskets, floral arrangements, and premium orchid collections. With long-lasting flowers, vigorous growth, and exceptional beauty, Sarah Jean Cascade brings elegance and charm to any home, garden, or exhibition. Carefully cultivated for healthy growth and reliable blooming, this variety is a timeless favorite among Cymbidium enthusiasts.", image: "img/two.jpg" },
+            { id: 3, name: "Cym Valley Splash Awesome", category: "Premium X", subcategory: "Mature", price: 5000, desc: "Valley Splash 'Awesome' is an exceptional Cymbidium orchid renowned for its spectacular floral display, long and graceful flower spikes, and large, perfectly shaped blooms. This vigorous variety produces an abundance of eye-catching flowers that create a truly breathtaking appearance. Its outstanding spike quality, excellent flower substance, and elegant form make it a prized choice for orchid collectors, exhibitions, and premium gardens. Carefully cultivated for strong growth and dependable blooming, Valley Splash 'Awesome' is a remarkable variety that brings beauty, sophistication, and lasting impact to any Cymbidium collection.", image: "img/three.jpg"  },
+            { id: 4, name: "Cym Oc Brown", category: "Premium", subcategory: "Mature", price: 2000, desc: "OC Brown is a striking Cymbidium orchid admired for its rich brown blooms, broad flower shape, and delightful natural fragrance. Its warm, earthy tones and elegant appearance make it a standout variety for orchid collectors and enthusiasts. Producing strong flower spikes with long-lasting, beautifully formed flowers, OC Brown is perfect for premium collections, floral arrangements, exhibitions, and decorative displays. Carefully cultivated for healthy growth and dependable blooming, this exceptional variety combines beauty, fragrance, and timeless elegance.", image: "img/four.jpg" },
+
+  {
+    "id": 5,
+    "name": "Barrita Brilliance and Cookies",
+    "category": "Premium X",
+    "subcategory": "Sapling",
+    "price": 700,
+    "desc": "The Cymbidium Barrita Brilliance 'Cookies & Cream' is a masterpiece of modern orchid breeding. It blends striking visual contrast with an unforgettable fragrance. This highly sought-after collector's plant is famous for its reliable, show-stopping winter-to-spring displays. It is a must-have for both beginner growers and seasoned orchid aficionados.",
+    "image": "img/5.jpg"
+  },
+            
+  { "id": 6,
+    "name": "K2",
+    "category": "Rare",
+    "subcategory": "Sapling",
+    "price": 799,
+    "desc": "The Cymbidium K1 Series is a premium hybrid orchid known for its vigorous growth, elegant flower spikes, and outstanding blooming performance. It produces healthy plants with strong pseudobulbs and lush green foliage, making it suitable for both hobby growers and commercial nurseries. Under proper care, the K1 Series develops long-lasting blooms with excellent color, form, and presentation. It thrives in cool to intermediate climates with bright, indirect light, regular watering, and balanced fertilization. The K1 Series is valued for its beauty, reliability, and high market appeal, making it an excellent choice for orchid collectors and professional growers alike.",
+    "image": "img/six.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Karulata Khan",
+    "category": "Medium",
+    "subcategory": "Mature",
+    "price": 1000,
+    "desc": "Cymbidium 'Karulata Khan' is a premium standard Cymbidium hybrid celebrated for its elegant form and refined beauty. It features large, broad, well-shaped blooms in soft blush pink with delicate peach undertones. The striking cream-colored lip, intricately marked with deep burgundy patterns, creates a beautiful contrast that enhances its overall appeal.",
+    "image": "img/seven.jpg"
+  },
+            
+  {
+    "id": 8,
+    "name": "Pontac Flame Rocky",
+    "category": "Premium X",
+    "subcategory": "Mature",
+    "price": 5000,
+    "desc": "Pontac Flame Rocky is a spectacular standard Cymbidium known for its rich, dramatic appearance and outstanding floral performance. The plant produces tall, strong spikes densely packed with large, velvety chocolate-maroon flowers that create a bold and elegant display. Each bloom is beautifully complemented by a white to cream lip adorned with fine burgundy markings, adding depth and contrast to its luxurious color.",
+    "image": "img/8.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Vanity",
+    "category": "Premium X",
+    "subcategory": "Sapling",
+    "price": 650,
+    "desc": "Vanity is a graceful standard Cymbidium admired for its pristine snow-white blooms and refined elegance. The large, well-shaped flowers are beautifully enhanced by a striking crimson-red and white patterned lip with a golden-yellow throat, creating a stunning contrast against the pure white petals. Arranged on strong, upright spikes, the blooms form an elegant and eye-catching display.",
+    "image": "img/9.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Vanity",
+    "category": "Premium X",
+    "subcategory": "Mature",
+    "price": 2800,
+    "desc": "Vanity is a graceful standard Cymbidium admired for its pristine snow-white blooms and refined elegance. The large, well-shaped flowers are beautifully enhanced by a striking crimson-red and white patterned lip with a golden-yellow throat, creating a stunning contrast against the pure white petals. Arranged on strong, upright spikes, the blooms form an elegant and eye-catching display.",
+    "image": "img/9.jpg"
+  },
+  {
+    "id": 11,
+    "name": "Vanity",
+    "category": "Premium X",
+    "subcategory": "Blooming",
+    "price": 3500,
+    "desc": "Vanity is a graceful standard Cymbidium admired for its pristine snow-white blooms and refined elegance. The large, well-shaped flowers are beautifully enhanced by a striking crimson-red and white patterned lip with a golden-yellow throat, creating a stunning contrast against the pure white petals. Arranged on strong, upright spikes, the blooms form an elegant and eye-catching display.",
+    "image": "img/9.jpg"
+  },
+  {
+    "id": 12,
+    "name": "Kiwi Midnight",
+    "category": "Mature",
+    "subcategory": "Rare",
+    "price": 2500,
+    "desc": "Kiwi Midnight is a stunning miniature Cymbidium celebrated for its rich, velvety midnight burgundy to near-black blooms. The compact flower spikes carry numerous small, perfectly formed flowers with a luxurious satin texture, creating a dramatic and elegant display. The dark petals are beautifully complemented by a subtly patterned lip, adding depth and sophistication to this unique variety.",
+    "image": "img/10.jpg"
+  },
+  {
+    "id": 13,
+    "name": "Ryan Bryant Masterpiece",
+    "category": "Premium",
+    "subcategory": "Mature",
+    "price": 1200,
+    "desc": "Ryan Bryant Masterpiece is a remarkable standard Cymbidium prized for its vibrant lime-green blooms and bold, intricately patterned lip. The large, well-rounded flowers feature fresh green petals that beautifully contrast with a cream lip densely marked with rich burgundy-red patterns, creating a dramatic and elegant display. Strong, upright spikes carry numerous blooms, making this variety an outstanding choice for both exhibition and premium collections.",
+    "image": "img/11.jpg"
+  },
+  {
+    "id": 14,
+    "name": "Fuji",
+    "category": "Medium",
+    "subcategory": "Mature",
+    "price": 1000,
+    "desc": "Fuji is a vibrant standard Cymbidium admired for its fresh lime-green to golden-yellow blooms and elegant floral presentation. The large, waxy flowers are beautifully arranged on strong, upright spikes, creating a bright and refreshing display. Each bloom features a rich golden-yellow lip that blends harmoniously with the luminous green petals, giving the variety a clean, refined, and cheerful appearance.",
+    "image": "img/12.jpg"
+  },
+  {
+    "id": 15,
+    "name": "Fuji",
+    "category": "Medium",
+    "subcategory": "Sapling",
+    "price": 350,
+    "desc": "Fuji is a vibrant standard Cymbidium admired for its fresh lime-green to golden-yellow blooms and elegant floral presentation. The large, waxy flowers are beautifully arranged on strong, upright spikes, creating a bright and refreshing display. Each bloom features a rich golden-yellow lip that blends harmoniously with the luminous green petals, giving the variety a clean, refined, and cheerful appearance.",
+    "image": "img/12.jpg"
+  },
+  {
+    "id": 16,
+    "name": "Everett Stockstill Bulai",
+    "category": "Premium X",
+    "subcategory": "Sapling",
+    "price": 750,
+    "desc": "Everett Stockstill Bulai is an outstanding standard Cymbidium admired for its elegant cream-yellow blooms adorned with bold burgundy markings. The large, well-shaped flowers feature soft ivory to pale yellow petals beautifully contrasted by a striking burgundy-speckled lip and delicate spotting across the segments, creating a refined and artistic appearance. Produced on tall, strong spikes, the numerous blooms form a spectacular and long-lasting floral display.",
+    "image": "img/13.jpg"
+  },
+  {
+    "id": 17,
+    "name": "Everett Stockstill Bulai",
+    "category": "Premium X",
+    "subcategory": "Mature",
+    "price": 3500,
+    "desc": "Everett Stockstill Bulai is an outstanding standard Cymbidium admired for its elegant cream-yellow blooms adorned with bold burgundy markings. The large, well-shaped flowers feature soft ivory to pale yellow petals beautifully contrasted by a striking burgundy-speckled lip and delicate spotting across the segments, creating a refined and artistic appearance. Produced on tall, strong spikes, the numerous blooms form a spectacular and long-lasting floral display.",
+    "image": "img/13.jpg"
+  },
+  {
+    "id": 18,
+    "name": "Koraki Glowing 'Kentyln'",
+    "category": "Premium X",
+    "subcategory": "Mature",
+    "price": 3500,
+    "desc": "Koraki Glowing 'Kentyln' is a spectacular standard Cymbidium admired for its brilliant golden-yellow blooms and vibrant floral display. The large, waxy flowers are beautifully arranged on tall, upright spikes, creating an impressive presentation. Each bloom features a striking deep crimson-red lip that contrasts vividly against the bright yellow petals, giving the variety a bold yet elegant appearance.",
+    "image": "img/14.jpg"
+  },
+  {
+    "id": 19,
+    "name": "Burgundian Sydney",
+    "category": "Premium",
+    "subcategory": "Mature",
+    "price": 3000,
+    "desc": "Burgundian Sydney is an exceptional standard Cymbidium admired for its sophisticated olive-bronze to champagne-green blooms and richly colored lip. The large, waxy flowers are beautifully arranged on strong, upright spikes, each featuring a striking deep burgundy-red lip with fine white striping and a golden throat. This elegant contrast gives the variety a refined and luxurious appearance.",
+    "image": "img/15.jpg"
+  },
+  {
+    "id": 20,
+    "name": "Burgundian Sydney",
+    "category": "Premium",
+    "subcategory": "Blooming",
+    "price": 3500,
+    "desc": "Burgundian Sydney is an exceptional standard Cymbidium admired for its sophisticated olive-bronze to champagne-green blooms and richly colored lip. The large, waxy flowers are beautifully arranged on strong, upright spikes, each featuring a striking deep burgundy-red lip with fine white striping and a golden throat. This elegant contrast gives the variety a refined and luxurious appearance.",
+    "image": "img/15.jpg"
+  },
+  {
+    "id": 21,
+    "name": "Powder Puff",
+    "category": "Premium",
+    "subcategory": "Mature",
+    "price": 1200,
+    "desc": "Powder Puff is a charming standard Cymbidium celebrated for its soft blush pink blooms and exceptional floral abundance. The large, perfectly formed flowers are gracefully arranged on tall, upright spikes, creating a spectacular and elegant display. Each bloom features delicate pastel pink petals beautifully complemented by a golden-yellow lip adorned with rich crimson-red markings, adding warmth and striking contrast to its gentle color.",
+    "image": "img/16.jpg"
+  },
+  {
+    "id": 22,
+    "name": "Powder Puff",
+    "category": "Premium",
+    "subcategory": "Sapling",
+    "price": 300,
+    "desc": "Powder Puff is a charming standard Cymbidium celebrated for its soft blush pink blooms and exceptional floral abundance. The large, perfectly formed flowers are gracefully arranged on tall, upright spikes, creating a spectacular and elegant display. Each bloom features delicate pastel pink petals beautifully complemented by a golden-yellow lip adorned with rich crimson-red markings, adding warmth and striking contrast to its gentle color.",
+    "image": "img/16.jpg"
+  },
+  {
+    "id": 23,
+    "name": "Valley Zenith 'Concord'",
+    "category": "Premium",
+    "subcategory": "Mature",
+    "price": 2500,
+    "desc": "Valley Zenith 'Concord' is a striking standard Cymbidium celebrated for its vibrant apple-green blooms and bold floral contrast. The large, well-shaped flowers are carried on strong, upright spikes, creating an elegant and eye-catching display. Each bloom features fresh lime-green petals beautifully complemented by a crisp white lip highlighted with a vivid crimson-red splash, giving the variety a modern and refined appearance.",
+    "image": "img/17.jpg"
+  },
+  {
+    "id": 24,
+    "name": "Neralla 'Jennifer Gail'",
+    "category": "Premium",
+    "subcategory": "Mature",
+    "price": 2000,
+    "desc": "Neralla 'Jennifer Gail' is an exquisite standard Cymbidium admired for its soft blush pink blooms and exceptional floral abundance. The large, gracefully shaped flowers are carried on strong, upright spikes, creating a spectacular and elegant display. Each bloom features delicate pastel pink petals complemented by a bright white and golden-yellow throat, accented with a rich rose-pink lip, producing a vibrant and refined contrast.",
+    "image": "img/18.jpg"
+  },
+  {
+    "id": 25,
+    "name": "Angel Beauty Queen",
+    "category": "Premium",
+    "subcategory": "Mature",
+    "price": 1200,
+    "desc": "Angel Beauty Queen is a stunning standard Cymbidium celebrated for its vibrant apple-green blooms and graceful floral elegance. The large, waxy flowers are beautifully arranged on tall, upright spikes, creating a fresh and eye-catching display. Each bloom features luminous green petals complemented by a crisp white lip with bold burgundy-red markings and a soft golden-yellow throat, giving the flower a striking yet refined appearance.",
+    "image": "img/19.jpg"
+  },
+  {
+    "id": 26,
+    "name": "Queen of Heart",
+    "category": "Premium X",
+    "subcategory": "Mature",
+    "price": 10000,
+    "desc": "Queen of Heart is a magnificent standard Cymbidium renowned for its vibrant deep rose-pink blooms and exceptional floral display. The large, perfectly shaped flowers are gracefully arranged on strong, upright spikes, creating a bold and elegant presentation. Each bloom features rich magenta-pink petals beautifully complemented by a deep burgundy lip with a white center and golden-yellow throat, adding remarkable depth and contrast.",
+    "image": "img/20.jpg"
+  },
+  {
+    "id": 27,
+    "name": "Queen of Heart",
+    "category": "Premium X",
+    "subcategory": "Sapling",
+    "price": 1200,
+    "desc": "Queen of Heart is a magnificent standard Cymbidium renowned for its vibrant deep rose-pink blooms and exceptional floral display. The large, perfectly shaped flowers are gracefully arranged on strong, upright spikes, creating a bold and elegant presentation. Each bloom features rich magenta-pink petals beautifully complemented by a deep burgundy lip with a white center and golden-yellow throat, adding remarkable depth and contrast.",
+    "image": "img/20.jpg"
+  },
+  {
+    "id": 28,
+    "name": "Yai",
+    "category": "Premium",
+    "subcategory": "Mature",
+    "price": 2500,
+    "desc": "Cymbidium 'Yai' is a graceful standard variety admired for its elegant white to blush-pink blooms, beautifully contrasted by a rich deep burgundy lip. The flowers are evenly arranged on tall, upright spikes, creating a refined and sophisticated display. Its pristine petals, long-lasting blooms, and excellent flower count make it a standout selection for exhibitions, premium collections, and ornamental landscaping. With its striking contrast and classic beauty, 'Yai' is a highly desirable Cymbidium that brings elegance and charm to any orchid collection.",
+    "image": "img/21.jpg"
+  },
+  {
+    "id": 29,
+    "name": "Wyong Flame 'Dural'",
+    "category": "Premium X",
+    "subcategory": "Mature",
+    "price": 3500,
+    "desc": "Cymbidium 'Wyong Flame 'Dural'' is a spectacular standard variety admired for its large, broad-petaled soft pink blooms. The flowers are carried on tall, strong spikes, creating a graceful and impressive display. Mature plants produce excellent flower spikes with outstanding bloom count, making this variety ideal for exhibitions, premium collections, and commercial cut flower production. Renowned for its vigorous growth, exceptional flower size, and long-lasting blooms, 'Wyong Flame 'Dural'' is a highly prized Cymbidium that brings elegance, beauty, and sophistication to any orchid collection.",
+    "image": "img/22.jpg"
+  },
+  {
+    "id": 30,
+    "name": "Show girl 'Lily Langtry'",
+    "category": "Medium",
+    "subcategory": "Mature",
+    "price": 1000,
+    "desc": "The Cymbidium Showgirl orchid brings a touch of classic grace and gentle beauty into your home. Known for its soft, porcelain-like presence, this beloved miniature variety balances a delicate aesthetic with a resilient spirit. It is the perfect choice for anyone looking to bring a calm, sophisticated natural accent to their living space.",
+    "image": "img/23.jpg"
+  }
+                 
+       ];
+
+        let cart = {};
+
+        // Mobile Menu Function
+        function toggleMobileMenu(show) {
+            const menu = document.getElementById('mobile-menu');
+            if (show) menu.classList.remove('hidden');
+            else menu.classList.add('hidden');
+        }
+
+        function handleCategoryChange() {
+            const catSelect = document.getElementById('category-select');
+            const subcatSelect = document.getElementById('subcategory-select');
+            const selectedCat = catSelect.value;
+            
+            subcatSelect.innerHTML = '';
+            
+            if (selectedCat === 'All') {
+                const opt = document.createElement('option');
+                opt.value = 'All';
+                opt.textContent = 'All Stages (Select category first)';
+                subcatSelect.appendChild(opt);
+            } else {
+                const stages = ['All Stages', 'Mature', 'Blooming', 'Sapling'];
+                stages.forEach(stage => {
+                    const opt = document.createElement('option');
+                    opt.value = stage === 'All Stages' ? 'All' : stage;
+                    opt.textContent = stage;
+                    subcatSelect.appendChild(opt);
+                });
+            }
+            filterStore();
+        }
+
+        function initStore(filteredItems = flowers) {
+            const grid = document.getElementById('flower-grid');
+            const emptyState = document.getElementById('empty-state');
+            if (!grid) return;
+            
+            grid.innerHTML = "";
+            
+            if (filteredItems.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            filteredItems.forEach(flower => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl overflow-hidden shadow-sm border border-neutral-200/80 hover:shadow-md transition-all flex flex-col group cursor-pointer";
+                card.setAttribute('onclick', `openLightbox(${JSON.stringify(flower)})`);
+                
+                card.innerHTML = `
+                    <div class="aspect-[3/4] w-full bg-neutral-100 relative overflow-hidden">
+                       <img src="${flower.image}" alt="${flower.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                       <span class="absolute bottom-3 left-3 bg-black/70 text-white text-[10px] font-bold tracking-wider px-2.5 py-1 rounded-md backdrop-blur-sm uppercase---"> ${flower.category} · ${flower.subcategory}
+                        </span>
+                     </div>
+                    <div class="p-5 flex-grow flex flex-col justify-between" onclick="event.stopPropagation()">
+                        <div>
+                            <h3 class="serif-font text-lg font-bold text-neutral-900 mb-1 group-hover:text-emerald-800 transition-colors">${flower.name}</h3>
+                            <p class="text-xs text-neutral-500 line-clamp-2 leading-relaxed mb-4">${flower.desc}</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-2 border-t border-neutral-100">
+                            <span class="text-base font-semibold text-neutral-900 font-mono">${CURRENCY_SYMBOL}${flower.price}</span>
+                            <button onclick="addToCart(${flower.id})" class="bg-emerald-50 hover:bg-emerald-700 text-emerald-800 hover:text-white px-3 py-1.5 text-xs font-semibold rounded-lg transition-all border border-emerald-200/60 flex items-center gap-1.5">
+                                Add +
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterStore() {
+            const searchVal = document.getElementById('search-input').value.toLowerCase();
+            const selectedCat = document.getElementById('category-select').value;
+            const selectedSubcat = document.getElementById('subcategory-select').value;
+
+            const matches = flowers.filter(item => {
+                const matchSearch = item.name.toLowerCase().includes(searchVal) || item.desc.toLowerCase().includes(searchVal);
+                const matchCat = (selectedCat === 'All' || item.category === selectedCat);
+                const matchSubcat = (selectedSubcat === 'All' || !selectedSubcat || item.subcategory === selectedSubcat);
+                return matchSearch && matchCat && matchSubcat;
+            });
+
+            initStore(matches);
+        }
+
+        function addToCart(id) {
+            cart[id] = (cart[id] || 0) + 1;
+            saveCartState();
+            updateCartUI();
+            const flower = flowers.find(f => f.id === id);
+            triggerToast(`Added ${flower.name} to your cart`);
+        }
+
+        function updateCartQuantity(id, amount) {
+            if (cart[id]) {
+                cart[id] += amount;
+                if (cart[id] <= 0) delete cart[id];
+                saveCartState();
+                updateCartUI();
+            }
+        }
+
+        function saveCartState() {
+            localStorage.setItem('chankay_cart', JSON.stringify(cart));
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const countLabel = document.getElementById('cart-count');
+            const badgeLabel = document.getElementById('cart-badge-count');
+            const totalLabel = document.getElementById('cart-total-price');
+            
+            if (!container) return;
+            container.innerHTML = "";
+            
+            let itemCounter = 0;
+            let totalCash = 0;
+
+            Object.keys(cart).forEach(id => {
+                const plant = flowers.find(f => f.id == id);
+                if (plant) {
+                    const quantity = cart[id];
+                    itemCounter += quantity;
+                    totalCash += plant.price * quantity;
+
+                    const row = document.createElement('div');
+                    row.className = "flex items-center justify-between gap-4 p-3 bg-neutral-50 rounded-xl border border-neutral-200/60";
+                    row.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <img src="${plant.image}" class="w-12 h-12 rounded-lg object-contain bg-neutral-100">
+                            <div>
+                                <h4 class="text-xs font-semibold text-neutral-900">${plant.name}</h4>
+                                <span class="text-[10px] text-neutral-500 font-mono">${CURRENCY_SYMBOL}${plant.price} /pcs</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2.5">
+                            <button onclick="updateCartQuantity(${plant.id}, -1)" class="w-6 h-6 rounded bg-white border border-neutral-300 flex items-center justify-center text-xs font-bold hover:bg-neutral-100">-</button>
+                            <span class="text-xs font-semibold text-neutral-800 min-w-[12px] text-center">${quantity}</span>
+                            <button onclick="updateCartQuantity(${plant.id}, 1)" class="w-6 h-6 rounded bg-white border border-neutral-300 flex items-center justify-center text-xs font-bold hover:bg-neutral-100">+</button>
+                        </div>
+                    `;
+                    container.appendChild(row);
+                }
+            });
+
+            if (itemCounter === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-neutral-400">
+                        <p class="text-sm">Your basket is currently empty</p>
+                    </div>
+                `;
+            }
+
+            countLabel.textContent = itemCounter;
+            badgeLabel.textContent = itemCounter;
+            totalLabel.textContent = `${CURRENCY_SYMBOL}${totalCash.toFixed(2)}`;
+        }
+
+        function toggleCartModal(show) {
+            const modal = document.getElementById('cart-modal');
+            if (show) modal.classList.remove('hidden');
+            else modal.classList.add('hidden');
+        }
+
+        function openLightbox(plantOrEvent) {
+            const modal = document.getElementById('lightbox');
+            if (!plantOrEvent || plantOrEvent.target) return;
+            
+            document.getElementById('lightbox-img').src = plantOrEvent.image;
+            document.getElementById('lightbox-title').textContent = plantOrEvent.name;
+            document.getElementById('lightbox-desc').textContent = plantOrEvent.desc;
+            document.getElementById('lightbox-price').textContent = `${CURRENCY_SYMBOL}${plantOrEvent.price}`;
+            document.getElementById('lightbox-badge').textContent = `${plantOrEvent.category} · ${plantOrEvent.subcategory}`;
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closeLightbox(e) {
+            document.getElementById('lightbox').classList.add('hidden');
+        }
+
+        function toggleLightbox(show) {
+            if (!show) document.getElementById('lightbox').classList.add('hidden');
+        }
+
+        function triggerToast(txt) {
+            const tray = document.getElementById('toast-container');
+            const alertBox = document.createElement('div');
+            alertBox.className = "bg-neutral-900 text-white text-xs px-4 py-3 rounded-xl shadow-lg flex items-center gap-2 transition-all opacity-0 translate-y-2";
+            alertBox.innerHTML = `
+                <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                <span>${txt}</span>
+            `;
+            tray.appendChild(alertBox);
+            setTimeout(() => {
+                alertBox.classList.remove('opacity-0', 'translate-y-2');
+            }, 50);
+            setTimeout(() => {
+                alertBox.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => alertBox.remove(), 300);
+            }, 3000);
+        }
+
+        function submitBookingToWhatsApp() {
+            const name = document.getElementById('cust-name').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+            const city = document.getElementById('cust-city').value.trim();
+            const po = document.getElementById('cust-po').value.trim();
+            const dist = document.getElementById('cust-dist').value.trim();
+            const state = document.getElementById('cust-state').value.trim();
+            const pin = document.getElementById('cust-pin').value.trim();
+
+            if (!name || !phone || !pin) {
+                alert("Please fill out Name, Phone, and Pincode fields to proceed.");
+                return;
+            }
+
+            if (Object.keys(cart).length === 0) {
+                alert("Your cart is empty. Please add items before checking out.");
+                return;
+            }
+
+            let textOut = `🌸 *NEW ORCHID ORDER - We are Orchid Fellow s* \n\n`;
+            textOut += `*Customer Details:*\n👤 Name: ${name}\n📞 Phone: ${phone}\n\n`;
+            textOut += `*Shipping Address:*\n📍 City: ${city}\n🏢 P.O.: ${po}\n🗺️ District: ${dist}\n🏛️ State: ${state}\n📮 Pincode: ${pin}\n\n`;
+            textOut += `*Items Ordered:*\n`;
+
+            let invoiceSum = 0;
+            Object.keys(cart).forEach(id => {
+                const plant = flowers.find(f => f.id == id);
+                if (plant) {
+                    const quantity = cart[id];
+                    const rowCost = plant.price * quantity;
+                    invoiceSum += rowCost;
+                    textOut += `▪️ ${plant.name} [${plant.category} | ${plant.subcategory}] x${quantity} — ₹${rowCost}\n`;
+                }
+            });
+
+            textOut += `\n💰 *Total Payable Amount: ₹${invoiceSum.toFixed(2)}*`;
+            
+            const encoded = encodeURIComponent(textOut);
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`, '_blank');
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initStore();
+            const localSaved = localStorage.getItem('chankay_cart');
+            if (localSaved) {
+                try {
+                    cart = JSON.parse(localSaved);
+                    updateCartUI();
+                } catch(err) {
+                    cart = {};
+                }
+            }
+        });
+    </script>
+</body>
+</html>
