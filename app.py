@@ -1,7 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from models import db, Flower
+import os
+from uuid import uuid4
+from PIL import Image
 
 app = Flask(__name__)
+app.config["UPLOAD_FOLDER"] = "static/uploads"
 
 # Secret Key
 app.secret_key = "change_this_to_a_random_secret_key"
@@ -61,14 +65,53 @@ def dashboard():
     return render_template("admin/dashboard.html", flowers=flowers)
 
 
-@app.route("/admin/add-flower")
+@app.route("/admin/add-flower", methods=["GET", "POST"])
 def add_flower():
 
     if not session.get("admin"):
         return redirect(url_for("admin_login"))
 
-    return render_template("admin/add_flower.html")
+    if request.method == "POST":
 
+        name = request.form["name"]
+        category = request.form["category"]
+        subcategory = request.form["subcategory"]
+        price = request.form["price"]
+        description = request.form["description"]
+
+        image = request.files["image"]
+
+        filename = ""
+
+        if image and image.filename != "":
+
+            ext = image.filename.rsplit(".", 1)[1].lower()
+
+            filename = f"{uuid4().hex}.{ext}"
+
+            filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+
+            img = Image.open(image)
+
+            img.thumbnail((800, 800))
+
+            img.save(filepath, quality=85)
+
+        flower = Flower(
+            name=name,
+            category=category,
+            subcategory=subcategory,
+            description=description,
+            price=int(price),
+            image=filename
+        )
+
+        db.session.add(flower)
+        db.session.commit()
+
+        return redirect(url_for("dashboard"))
+
+    return render_template("admin/add_flower.html")
 
 # ===========================
 # Logout
