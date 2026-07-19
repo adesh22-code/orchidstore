@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from models import db, Flower
+from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
 
@@ -23,3 +24,43 @@ def home():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+app.secret_key = "change_this_to_a_random_secret_key"
+
+@app.route("/admin/login", methods=["GET", "POST"])
+def admin_login():
+
+    if request.method == "POST":
+
+        username = request.form["username"]
+        password = request.form["password"]
+
+        if username == "admin" and password == "orchid123":
+
+            session["admin"] = True
+
+            return redirect(url_for("dashboard"))
+
+        return "Invalid Username or Password"
+
+    return render_template("admin/login.html")
+
+
+@app.route("/admin/dashboard")
+def dashboard():
+
+    if not session.get("admin"):
+        return redirect(url_for("admin_login"))
+
+    flowers = Flower.query.all()
+
+    return render_template("admin/dashboard.html", flowers=flowers)
+
+
+@app.route("/logout")
+def logout():
+
+    session.clear()
+
+    return redirect(url_for("admin_login"))
