@@ -1,45 +1,45 @@
-from flask import Flask, render_template
-from models import db, Flower
 from flask import Flask, render_template, request, redirect, url_for, session
+from models import db, Flower
 
 app = Flask(__name__)
 
-# SQLite Database
+# Secret Key
+app.secret_key = "change_this_to_a_random_secret_key"
+
+# Database Configuration
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///flowers.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # Initialize Database
 db.init_app(app)
 
-# Create database tables automatically
+# Create Tables
 with app.app_context():
     db.create_all()
 
 
+# ===========================
+# Home Page
+# ===========================
 @app.route("/")
 def home():
     flowers = Flower.query.all()
     return render_template("index.html", flowers=flowers)
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
-
-
-app.secret_key = "change_this_to_a_random_secret_key"
-
+# ===========================
+# Admin Login
+# ===========================
 @app.route("/admin/login", methods=["GET", "POST"])
 def admin_login():
 
     if request.method == "POST":
 
-        username = request.form["username"]
-        password = request.form["password"]
+        username = request.form.get("username")
+        password = request.form.get("password")
 
         if username == "admin" and password == "orchid123":
-
             session["admin"] = True
-
             return redirect(url_for("dashboard"))
 
         return "Invalid Username or Password"
@@ -47,6 +47,9 @@ def admin_login():
     return render_template("admin/login.html")
 
 
+# ===========================
+# Dashboard
+# ===========================
 @app.route("/admin/dashboard")
 def dashboard():
 
@@ -58,9 +61,17 @@ def dashboard():
     return render_template("admin/dashboard.html", flowers=flowers)
 
 
+# ===========================
+# Logout
+# ===========================
 @app.route("/logout")
 def logout():
-
     session.clear()
-
     return redirect(url_for("admin_login"))
+
+
+# ===========================
+# Run Application
+# ===========================
+if __name__ == "__main__":
+    app.run(debug=True)
