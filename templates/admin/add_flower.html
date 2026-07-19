@@ -1,1 +1,76 @@
+<!DOCTYPE html>
+<html>
 
+<head>
+
+    <title>Add Flower</title>
+
+</head>
+
+<body>
+
+<h1>Add New Flower</h1>
+
+<form method="POST" enctype="multipart/form-data">
+
+    <p>Name</p>
+    <input type="text" name="name">
+
+    <p>Category</p>
+    <select name="category">
+        <option>Medium</option>
+        <option>Premium</option>
+        <option>Premium X</option>
+        <option>Rare</option>
+    </select>
+
+    <p>Stage</p>
+
+    <select name="subcategory">
+
+        <option>Sapling</option>
+
+        <option>Mature</option>
+
+        <option>Blooming</option>
+
+    </select>
+
+    <p>Price</p>
+
+    <input type="number" name="price">
+
+    <p>Description</p>
+
+    <textarea
+        name="description"
+        rows="6"
+        cols="50"></textarea>
+
+    <p>Flower Image</p>
+
+    <input
+        type="file"
+        name="image">
+
+    <br><br>
+
+    <button>
+
+        Save Flower
+
+    </button>
+
+</form>
+
+<br>
+
+<a href="/admin/dashboard">
+
+Back
+
+</a>
+
+</body>
+
+</html>
