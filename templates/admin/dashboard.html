@@ -2,40 +2,65 @@
 <html>
 
 <head>
-
-<title>Dashboard</title>
-
+    <title>Dashboard</title>
 </head>
 
 <body>
 
 <h1>Admin Dashboard</h1>
 
-<p>
+<a href="{{ url_for('add_flower') }}">➕ Add Flower</a>
 
-Welcome Admin
+|
 
-</p>
-
-<a href="/logout">
-
-Logout
-
-</a>
+<a href="{{ url_for('logout') }}">Logout</a>
 
 <hr>
 
-<h3>Total Flowers</h3>
+<table border="1" cellpadding="10">
 
-{{ flowers|length }}
+<tr>
 
-<br><br>
+<th>ID</th>
 
-<a href="{{ url_for('add_flower') }}">
+<th>Image</th>
 
-➕ Add Flower
+<th>Name</th>
 
-</a>
+<th>Price</th>
+
+<th>Category</th>
+
+</tr>
+
+{% for flower in flowers %}
+
+<tr>
+
+<td>{{ flower.id }}</td>
+
+<td>
+
+{% if flower.image %}
+
+<img src="{{ url_for('static', filename='uploads/' + flower.image) }}"
+     width="100">
+
+{% endif %}
+
+</td>
+
+<td>{{ flower.name }}</td>
+
+<td>₹ {{ flower.price }}</td>
+
+<td>{{ flower.category }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
 
 </body>
 
