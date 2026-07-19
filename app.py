@@ -61,6 +61,15 @@ def dashboard():
     return render_template("admin/dashboard.html", flowers=flowers)
 
 
+@app.route("/admin/add-flower")
+def add_flower():
+
+    if not session.get("admin"):
+        return redirect(url_for("admin_login"))
+
+    return render_template("admin/add_flower.html")
+
+
 # ===========================
 # Logout
 # ===========================
