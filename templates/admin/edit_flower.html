@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edit Flower</title>
+</head>
+
+<body>
+
+<h1>Edit Flower</h1>
+
+<form method="POST" enctype="multipart/form-data">
+
+    <p>Name</p>
+    <input type="text"
+           name="name"
+           value="{{ flower.name }}"
+           required>
+
+    <p>Category</p>
+    <select name="category">
+
+        <option value="Medium"
+            {% if flower.category=="Medium" %}selected{% endif %}>
+            Medium
+        </option>
+
+        <option value="Premium"
+            {% if flower.category=="Premium" %}selected{% endif %}>
+            Premium
+        </option>
+
+        <option value="Premium X"
+            {% if flower.category=="Premium X" %}selected{% endif %}>
+            Premium X
+        </option>
+
+        <option value="Rare"
+            {% if flower.category=="Rare" %}selected{% endif %}>
+            Rare
+        </option>
+
+    </select>
+
+    <p>Subcategory</p>
+    <select name="subcategory">
+
+        <option value="Sapling"
+            {% if flower.subcategory=="Sapling" %}selected{% endif %}>
+            Sapling
+        </option>
+
+        <option value="Mature"
+            {% if flower.subcategory=="Mature" %}selected{% endif %}>
+            Mature
+        </option>
+
+        <option value="Blooming"
+            {% if flower.subcategory=="Blooming" %}selected{% endif %}>
+            Blooming
+        </option>
+
+    </select>
+
+    <p>Price</p>
+    <input type="number"
+           name="price"
+           value="{{ flower.price }}"
+           required>
+
+    <p>Description</p>
+
+    <textarea
+        name="description"
+        rows="6"
+        cols="50"
+        required>{{ flower.description }}</textarea>
+
+    <p>Current Image</p>
+
+    {% if flower.image %}
+        <img src="{{ url_for('static', filename='uploads/' + flower.image) }}"
+             width="200">
+    {% endif %}
+
+    <p>Replace Image (Optional)</p>
+
+    <input type="file" name="image">
+
+    <br><br>
+
+    <button type="submit">
+        Update Flower
+    </button>
+
+</form>
+
+<br>
+
+<a href="{{ url_for('dashboard') }}">
+    ← Back to Dashboard
+</a>
+
+</body>
+
+</html>
