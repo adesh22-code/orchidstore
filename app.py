@@ -115,16 +115,15 @@ def add_flower():
 
 
 @app.route("/admin/delete-flower/<int:flower_id>")
-def delete_flower():
+def delete_flower(flower_id):
 
     if not session.get("admin"):
         return redirect(url_for("admin_login"))
 
     flower = Flower.query.get_or_404(flower_id)
 
-    # Delete image from uploads folder
+    # Delete image
     if flower.image:
-
         image_path = os.path.join(
             app.config["UPLOAD_FOLDER"],
             flower.image
@@ -133,7 +132,7 @@ def delete_flower():
         if os.path.exists(image_path):
             os.remove(image_path)
 
-    # Delete database record
+    # Delete from database
     db.session.delete(flower)
     db.session.commit()
 
