@@ -115,6 +115,28 @@ def add_flower():
 
 
 
+@app.route("/admin/edit-flower/<int:flower_id>", methods=["GET", "POST"])
+def edit_flower(flower_id):
+
+    if not session.get("admin"):
+        return redirect(url_for("admin_login"))
+
+    flower = Flower.query.get_or_404(flower_id)
+
+    if request.method == "POST":
+
+        flower.name = request.form["name"]
+        flower.category = request.form["category"]
+        flower.subcategory = request.form["subcategory"]
+        flower.price = int(request.form["price"])
+        flower.description = request.form["description"]
+
+        db.session.commit()
+
+        return redirect(url_for("dashboard"))
+
+    return render_template("admin/edit_flower.html", flower=flower)
+
 
 # ===========================
 # Logout
