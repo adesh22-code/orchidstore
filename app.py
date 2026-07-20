@@ -131,11 +131,48 @@ def edit_flower(flower_id):
         flower.price = int(request.form["price"])
         flower.description = request.form["description"]
 
+        image = request.files.get("image")
+
+        # New image uploaded
+        if image and image.filename != "":
+
+            # Delete old image
+            if flower.image:
+
+                old_path = os.path.join(
+                    app.config["UPLOAD_FOLDER"],
+                    flower.image
+                )
+
+                if os.path.exists(old_path):
+                    os.remove(old_path)
+
+            # Save new image
+            ext = image.filename.rsplit(".", 1)[1].lower()
+
+            filename = f"{uuid4().hex}.{ext}"
+
+            filepath = os.path.join(
+                app.config["UPLOAD_FOLDER"],
+                filename
+            )
+
+            img = Image.open(image)
+
+            img.thumbnail((800, 800))
+
+            img.save(filepath, quality=85)
+
+            flower.image = filename
+
         db.session.commit()
 
         return redirect(url_for("dashboard"))
 
-    return render_template("admin/edit_flower.html", flower=flower)
+    return render_template(
+        "admin/edit_flower.html",
+        flower=flower
+    )
 
 
 # ===========================
