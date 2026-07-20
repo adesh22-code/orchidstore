@@ -114,6 +114,32 @@ def add_flower():
     return render_template("admin/add_flower.html")
 
 
+@app.route("/admin/delete-flower/<int:flower_id>")
+def delete_flower():
+
+    if not session.get("admin"):
+        return redirect(url_for("admin_login"))
+
+    flower = Flower.query.get_or_404(flower_id)
+
+    # Delete image from uploads folder
+    if flower.image:
+
+        image_path = os.path.join(
+            app.config["UPLOAD_FOLDER"],
+            flower.image
+        )
+
+        if os.path.exists(image_path):
+            os.remove(image_path)
+
+    # Delete database record
+    db.session.delete(flower)
+    db.session.commit()
+
+    return redirect(url_for("dashboard"))
+
+
 
 @app.route("/admin/edit-flower/<int:flower_id>", methods=["GET", "POST"])
 def edit_flower(flower_id):
