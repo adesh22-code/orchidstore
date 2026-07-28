@@ -1,0 +1,4 @@
+/admin/
+*.db
+__pycache__/
+venv/
