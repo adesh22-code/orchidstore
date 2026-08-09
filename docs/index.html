@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We are Orchid Fellows | Orchid Farm</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="text-neutral-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Glassmorphic Header Navigation -->
+    <header class="sticky top-0 z-40 bg-white/40 backdrop-blur-md border-b border-white/20 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <!-- Hamburger Button (Visible on mobile/tablet) -->
+                <button onclick="toggleMobileMenu(true)" class="md:hidden p-2 text-neutral-700 hover:text-emerald-900 transition-colors focus:outline-none" aria-label="Open Menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+                <div>
+                    <h1 class="serif-font text-2xl sm:text-3xl font-bold tracking-wide text-emerald-950">We are Orchid Fellows</h1>
+                    <p class="text-[10px] sm:text-xs tracking-widest text-emerald-700 font-medium uppercase mt-0.5">Orchid Farm</p>
+                </div>
+            </div>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-700">
+                <a href="#" class="hover:text-emerald-800 transition-colors">Home</a>
+                <a href="#flower-grid" class="hover:text-emerald-800 transition-colors">Our Collection</a>
+                <a href="#contact" class="hover:text-emerald-800 transition-colors">Contact</a>
+            </nav>
+            
+            <button onclick="toggleCartModal(true)" class="relative p-2.5 text-neutral-700 hover:text-emerald-900 transition-colors bg-white/80 backdrop-blur-sm rounded-full shadow-sm border border-neutral-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+                <span id="cart-count" class="absolute -top-1 -right-1 bg-emerald-700 text-white text-[11px] font-semibold w-5 h-5 rounded-full flex items-center justify-center shadow-sm">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Slide-out Hamburger Mobile Drawer Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex justify-start" onclick="toggleMobileMenu(false)">
+        <div class="bg-white w-full max-w-xs h-full shadow-2xl flex flex-col p-6 space-y-6" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between border-b border-neutral-100 pb-4">
+                <div class="serif-font text-xl font-bold text-emerald-950">Menu</div>
+                <button onclick="toggleMobileMenu(false)" class="p-2 text-neutral-400 hover:text-neutral-700 rounded-full hover:bg-neutral-100 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <nav class="flex flex-col gap-4 text-base font-medium text-neutral-800">
+                <a href="#" onclick="toggleMobileMenu(false)" class="hover:text-emerald-800 transition-colors py-2 border-b border-neutral-50">Home</a>
+                <a href="#flower-grid" onclick="toggleMobileMenu(false)" class="hover:text-emerald-800 transition-colors py-2 border-b border-neutral-50">Our Collection</a>
+                <a href="#contact" onclick="toggleMobileMenu(false)" class="hover:text-emerald-800 transition-colors py-2 border-b border-neutral-50">Contact</a>
+            </nav>
+        </div>
+    </div>
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4 w-full">
+        <div class="bg-gradient-to-br from-emerald-950 to-neutral-900 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10 mix-blend-overlay bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?auto=format&fit=crop&w=1200&q=80');"></div>
+            <div class="relative z-10 max-w-2xl">
+                <span class="text-xs font-semibold tracking-widest text-emerald-400 uppercase bg-emerald-900/50 px-3 py-1 rounded-full border border-emerald-700/50">Darjeeling Highlands</span>
+                <h2 class="serif-font text-3xl sm:text-5xl font-semibold mt-4 mb-3 leading-tight">Exotic Orchids</h2>
+                <p class="text-neutral-300 font-light text-sm sm:text-base leading-relaxed">Browse our collection of hand-grown Himalayan orchids. Order instantly via WhatsApp.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
+        <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-neutral-200/80">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-neutral-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
+                    </span>
+                    <input type="text" id="search-input" oninput="filterStore()" placeholder="Search orchids..." class="w-full pl-9 pr-4 py-2.5 text-sm bg-neutral-50 rounded-xl border border-neutral-200 focus:outline-none focus:border-emerald-600 focus:bg-white transition-all">
+                </div>
+
+                <div>
+                    <select id="category-select" onchange="handleCategoryChange()" class="w-full px-3 py-2.5 text-sm bg-neutral-50 rounded-xl border border-neutral-200 focus:outline-none focus:border-emerald-600 focus:bg-white transition-all">
+                        <option value="All">All Categories</option>
+                        <option value="Medium">Medium Category</option>
+                        <option value="Premium">Premium Category</option>
+                        <option value="Premium X">Premium X Category</option>
+                        <option value="Rare">Rare Category</option>
+                    </select>
+                </div>
+
+                <div>
+                    <select id="subcategory-select" onchange="filterStore()" class="w-full px-3 py-2.5 text-sm bg-neutral-50 rounded-xl border border-neutral-200 focus:outline-none focus:border-emerald-600 focus:bg-white transition-all">
+                        <option value="All">All Stages (Select category first)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex-grow w-full">
+        <div id="flower-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        </div>
+        
+        <div id="empty-state" class="hidden text-center py-16 bg-white rounded-2xl border border-dashed border-neutral-300 max-w-md mx-auto mt-8">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-12 h-12 mx-auto text-neutral-400 mb-3"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>
+            <h3 class="font-medium text-neutral-800 text-base">No matching orchids found</h3>
+            <p class="text-xs text-neutral-500 mt-1 px-4">Try adjusting your category selection or clearing your search term.</p>
+        </div>
+    </main>
+
+     <!-- Updated Footer with Social Media & Call Buttons -->
+    <footer id="contact" class="bg-neutral-900 text-neutral-400 text-xs py-10 border-t border-neutral-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <!-- Address & Info -->
+            <div class="text-center md:text-left">
+                <p class="font-medium text-neutral-300 text-sm">We are Orchid Fellows</p>
+                <p class="mt-1 opacity-70">Sonada PO, Darjeeling District, West Bengal, PIN 734209</p>
+                <p class="opacity-60 mt-1">&copy; 2026 C
+                    We are Orchid Fellows. Premium Single-Page Platform.</p>
+            </div>
+
+            <!-- Social Media & Contact Buttons -->
+            <div class="flex flex-wrap justify-center items-center gap-4">
+                <!-- Direct Call Option -->
+                <a href="tel:+917001937504" class="flex items-center gap-1.5 bg-neutral-800 hover:bg-emerald-800 text-neutral-200 px-3.5 py-2 rounded-xl border border-neutral-700 hover:border-emerald-600 transition-all font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 text-emerald-400">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.387a12.035 12.035 0 0 1-7.108-7.108c-.155-.44.011-.926.387-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                    </svg>
+                    Call Us
+                </a>
+
+                <!-- WhatsApp Button -->
+                <a href="https://wa.me/917001937504" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 bg-neutral-800 hover:bg-emerald-950 text-neutral-200 px-3.5 py-2 rounded-xl border border-neutral-700 hover:border-emerald-600 transition-all font-medium" aria-label="WhatsApp">
+                    <svg class="w-4 h-4 fill-emerald-400" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.455L0 24zm6.79-11.854c.137-.089.226-.141.348-.317.122-.176.061-.329-.031-.513-.092-.184-.817-1.965-1.118-2.694-.295-.715-.595-.619-.817-.619-.213-.001-.456-.001-.7-.001-.243 0-.639.091-.973.456-.335.365-1.278 1.248-1.278 3.042 0 1.794 1.309 3.524 1.492 3.768.183.243 2.525 4.075 6.242 5.54 3.717 1.465 3.717 1.026 4.387.965.669-.061 2.161-.882 2.465-1.734.304-.852.304-1.583.213-1.734-.092-.152-.335-.243-.67-.408-.336-.165-1.978-.974-2.282-1.084-.304-.111-.527-.165-.747.165-.221.329-.852 1.084-1.043 1.309-.19.226-.38.252-.715.087-.335-.166-1.414-.522-2.694-1.662-1-.892-1.676-1.994-1.872-2.33-.196-.335-.021-.517.147-.682zm0 0"/></svg>
+                    WhatsApp
+                </a>
+
+                <!-- Facebook Button -->
+                <a href="https://facebook.com/your-page-username" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 bg-neutral-800 hover:bg-blue-900 text-neutral-200 px-3.5 py-2 rounded-xl border border-neutral-700 hover:border-blue-700 transition-all font-medium" aria-label="Facebook">
+                    <svg class="w-4 h-4 fill-blue-400" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    Facebook
+                </a>
+
+                <!-- YouTube Button -->
+                <a href="https://youtube.com/@weareorchidfellows?si=SiaIN5OySDH0yur4"_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 bg-neutral-800 hover:bg-red-950 text-neutral-200 px-3.5 py-2 rounded-xl border border-neutral-700 hover:border-red-700 transition-all font-medium" aria-label="YouTube">
+                    <svg class="w-4 h-4 fill-red-500" viewBox="0 0 24 24"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    YouTube
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="lightbox" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-md hidden flex items-center justify-center p-4" onclick="closeLightbox(event)">
+        <div class="bg-white rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl transition-transform transform scale-95" onclick="event.stopPropagation()">
+            <div class="relative h-64 sm:h-80 w-full bg-neutral-100">
+                <img id="lightbox-img" src="" alt="" class="w-full h-full object-cover">
+                <button onclick="toggleLightbox(false)" class="absolute top-4 right-4 bg-black/40 text-white hover:bg-black/60 p-2 rounded-full transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="flex items-start justify-between gap-4">
+                    <div>
+                        <span id="lightbox-badge" class="text-[10px] font-bold tracking-widest uppercase text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-200"></span>
+                        <h3 id="lightbox-title" class="serif-font text-2xl font-bold text-neutral-900 mt-2"></h3>
+                    </div>
+                    <p id="lightbox-price" class="text-xl font-semibold text-emerald-900 font-mono"></p>
+                </div>
+                <p id="lightbox-desc" class="text-sm text-neutral-600 mt-3 leading-relaxed border-b border-neutral-100 pb-4"></p>
+                <div class="mt-4 flex items-center justify-between text-xs text-neutral-500">
+                    <span>📍 Origin: We are Orchid Fellows</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cart-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex justify-end" onclick="toggleCartModal(false)">
+        <div class="bg-white w-full max-w-md h-full shadow-2xl flex flex-col" onclick="event.stopPropagation()">
+            <div class="p-6 border-b border-neutral-200 flex items-center justify-between bg-neutral-50">
+                <div class="flex items-center gap-2">
+                    <h3 class="font-semibold text-neutral-900 text-lg">Your Order Cart</h3>
+                    <span class="text-xs text-neutral-500 bg-neutral-200 px-2 py-0.5 rounded-full font-medium" id="cart-badge-count">0</span>
+                </div>
+                <button onclick="toggleCartModal(false)" class="p-2 text-neutral-400 hover:text-neutral-700 rounded-full hover:bg-neutral-200/50 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+
+            <div id="cart-items-container" class="flex-grow overflow-y-auto p-6 space-y-4 no-scrollbar">
+            </div>
+
+            <div class="p-6 border-t border-neutral-200 bg-neutral-50/50 space-y-4">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-neutral-500 border-b border-neutral-200/60 pb-1">Sonada / Darjeeling Shipping Details</h4>
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="text" id="cust-name" placeholder="Full Name" class="w-full text-xs p-2.5 bg-white border border-neutral-300 rounded-lg focus:outline-emerald-600">
+                    <input type="text" id="cust-phone" placeholder="Phone Number" class="w-full text-xs p-2.5 bg-white border border-neutral-300 rounded-lg focus:outline-emerald-600">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="text" id="cust-city" placeholder="City / Town" class="w-full text-xs p-2.5 bg-white border border-neutral-300 rounded-lg focus:outline-emerald-600">
+                    <input type="text" id="cust-po" placeholder="Post Office" class="w-full text-xs p-2.5 bg-white border border-neutral-300 rounded-lg focus:outline-emerald-600">
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                    <input type="text" id="cust-dist" placeholder="District" class="w-full text-xs p-2.5 bg-white border border-neutral-300 rounded-lg focus:outline-emerald-600">
+                    <input type="text" id="cust-state" placeholder="State"  class="w-full text-xs p-2.5 bg-white border border-neutral-300 rounded-lg focus:outline-emerald-600">
+                    <input type="text" id="cust-pin" placeholder="Pincode" class="w-full text-xs p-2.5 bg-white border border-neutral-300 rounded-lg focus:outline-emerald-600">
+                </div>
+                
+                <div class="pt-2 border-t border-neutral-200">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-sm font-medium text-neutral-600">Estimated Invoice balance:</span>
+                        <span id="cart-total-price" class="text-xl font-bold font-mono text-emerald-950">₹0.00</span>
+                    </div>
+                    <button onclick="submitBookingToWhatsApp()" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-medium py-3 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 text-sm">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.455L0 24zm6.79-11.854c.137-.089.226-.141.348-.317.122-.176.061-.329-.031-.513-.092-.184-.817-1.965-1.118-2.694-.295-.715-.595-.619-.817-.619-.213-.001-.456-.001-.7-.001-.243 0-.639.091-.973.456-.335.365-1.278 1.248-1.278 3.042 0 1.794 1.309 3.524 1.492 3.768.183.243 2.525 4.075 6.242 5.54 3.717 1.465 3.717 1.026 4.387.965.669-.061 2.161-.882 2.465-1.734.304-.852.304-1.583.213-1.734-.092-.152-.335-.243-.67-.408-.336-.165-1.978-.974-2.282-1.084-.304-.111-.527-.165-.747.165-.221.329-.852 1.084-1.043 1.309-.19.226-.38.252-.715.087-.335-.166-1.414-.522-2.694-1.662-1-.892-1.676-1.994-1.872-2.33-.196-.335-.021-.517.147-.682zm0 0"/></svg>
+                        Place Order via WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2"></div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
